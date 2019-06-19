@@ -8,9 +8,7 @@ class LoginScreen extends StatelessWidget {
     BoxDecoration _buildBackground() {
       return BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage(
-                'https://images.unsplash.com/photo-1556910633-5099dc3971e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'),
-            fit: BoxFit.cover),
+            image: AssetImage("assets/cook3.jpg"), fit: BoxFit.cover),
       );
     }
 
@@ -33,7 +31,11 @@ class LoginScreen extends StatelessWidget {
               _buildText(),
               SizedBox(height: 50.0),
               GoogleSignInButton(
-                onPressed: () => print("Buttogns rocks"),
+                // We replace the current page.
+                // After navigating to the replacement, it's not possible
+                // to go back to the previous screen:
+                onPressed: () =>
+                    Navigator.of(context).pushReplacementNamed('/'),
               )
             ],
           ),
