@@ -6,7 +6,11 @@ Future<GoogleSignInAccount> getSignedInAccount(
   GoogleSignInAccount account = googleSignIn.currentUser;
 
   if (account == null) {
-    account = await googleSignIn.signInSilently();
+    try {
+      account = await googleSignIn.signInSilently(suppressErrors: true);
+    } catch (e) {
+      print('$e');
+    }
   }
   return account;
 }
@@ -20,10 +24,10 @@ Future<FirebaseUser> signIntoFirebase(
       idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 }
 
-Future<FirebaseUser> signInWithPhone(
-    GoogleSignInAccount googleSignInAccount) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignInAuthentication googleAuth =
-      await googleSignInAccount.authentication;
-  return await _auth.signInWithPhoneNumber(verificationId: null, smsCode: null);
-}
+// Future<FirebaseUser> signInWithPhone(
+//     GoogleSignInAccount googleSignInAccount) async {
+//   FirebaseAuth _auth = FirebaseAuth.instance;
+//   GoogleSignInAuthentication googleAuth =
+//       await googleSignInAccount.authentication;
+//   return await _auth.signInWithPhoneNumber(verificationId: null, smsCode: null);
+// }
