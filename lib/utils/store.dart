@@ -5,7 +5,7 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '0',
       type: RecipeType.food,
-      name: 'Oatmeal with Fruits',
+      name: 'Dope soup',
       duration: Duration(minutes: 15),
       ingredients: [
         '100g of oats',
@@ -20,7 +20,7 @@ List<Recipe> getRecipes() {
         'Step 3',
       ],
       imageURL:
-          'https://images.unsplash.com/photo-1517673400267-0251440c45dc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f197f4922b3f26ed3f4e3e66a113b67b&auto=format&fit=crop&w=1050&q=80',
+          'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
     ),
     Recipe(
       id: '1',
@@ -46,7 +46,7 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '2',
       type: RecipeType.drink,
-      name: 'Strawberry Juice',
+      name: 'Madrink na Strawberry Juice',
       duration: Duration(minutes: 10),
       ingredients: [
         '100g of strawberries',
@@ -65,7 +65,7 @@ List<Recipe> getRecipes() {
     Recipe(
       id: '3',
       type: RecipeType.drink,
-      name: 'Blueberry Smoothie',
+      name: 'Bluemoon Smoothie',
       duration: Duration(minutes: 10),
       ingredients: [
         '100g of fresh blueberries',
