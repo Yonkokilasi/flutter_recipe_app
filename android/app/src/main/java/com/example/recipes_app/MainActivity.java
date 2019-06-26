@@ -1,4 +1,4 @@
-package com.example.recipes;
+package com.example.recipes_app;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
