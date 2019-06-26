@@ -36,7 +36,7 @@ class RecipeCard extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.timer, size: 20.0),
                 SizedBox(width: 5.0),
-                Text(recipe.duration.toString()),
+                Text(recipe.getDurationString),
               ],
             )
           ],
