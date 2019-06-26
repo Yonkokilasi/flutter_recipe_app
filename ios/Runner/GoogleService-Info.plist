@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>466486213792-9fb3e8m18kn4p8qat6iv4cr9r0sh6ibr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.466486213792-9fb3e8m18kn4p8qat6iv4cr9r0sh6ibr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBmYbtYTZwl6-REwxuJhHvTu_jCle9FdKg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>466486213792</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.recipesApp</string>
+	<key>PROJECT_ID</key>
+	<string>recipeapp-edeef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>recipeapp-edeef.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:466486213792:ios:b1501fc76caa8afc</string>
+	<key>DATABASE_URL</key>
+	<string>https://recipeapp-edeef.firebaseio.com</string>
+</dict>
+</plist>
