@@ -56,10 +56,9 @@ class HomeScreenState extends State<HomeScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
-            backgroundColor: Colors.deepOrange,
             elevation: 2.0,
             bottom: TabBar(
-              labelColor: Colors.white,
+              labelColor: Colors.black,
               tabs: [
                 Tab(icon: Icon(Icons.restaurant, size: _iconSize)),
                 Tab(icon: Icon(Icons.local_drink, size: _iconSize)),
