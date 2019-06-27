@@ -45,12 +45,15 @@ class _StateWidgetState extends State<StateWidget> {
   }
 
   Future<Null> initUser() async {
+    print('init user');
     googleSignInAccount = await getSignedInAccount(googleSignIn);
     if (googleSignInAccount == null) {
+    print(' user account null');
       setState(() {
         state.isLoading = false;
       });
     } else {
+    print(' sign in with google');
       await signInWithGoogle();
     }
   }
@@ -60,7 +63,17 @@ class _StateWidgetState extends State<StateWidget> {
       // Start the sign in process
       googleSignInAccount = await googleSignIn.signIn();
     }
+
     FirebaseUser firebaseUser = await signIntoFirebase(googleSignInAccount);
+    setState(() {
+      state.isLoading = false;
+      state.user = firebaseUser;
+    });
+  }
+  Future<Null> signInWithPhone(FirebaseUser firebaseUser) async {
+    if(firebaseUser == null){
+      firebaseUser = signInWithPhoneNumber();
+    }
     setState(() {
       state.isLoading = false;
       state.user = firebaseUser;
