@@ -18,8 +18,10 @@ Future<GoogleSignInAccount> getSignedInAccount(
 Future<FirebaseUser> signIntoFirebase(
     GoogleSignInAccount googleSignInAccount) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
+
   GoogleSignInAuthentication googleAuth =
       await googleSignInAccount.authentication;
+      
   return await _auth.signInWithGoogle(
       idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 }

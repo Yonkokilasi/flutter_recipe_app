@@ -71,9 +71,7 @@ class _StateWidgetState extends State<StateWidget> {
     });
   }
   Future<Null> signInWithPhone(FirebaseUser firebaseUser) async {
-    if(firebaseUser == null){
-      firebaseUser = signInWithPhoneNumber();
-    }
+   
     setState(() {
       state.isLoading = false;
       state.user = firebaseUser;
