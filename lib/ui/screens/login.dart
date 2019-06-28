@@ -116,6 +116,8 @@ class LoginScreenState extends State<LoginScreen> {
           .then((FirebaseUser user) async {
         final FirebaseUser currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
+        
+        // save account
         StateWidget.of(context).signInWithPhone(currentUser);
         print('signed in with phone number successful: user -> $user');
       });
