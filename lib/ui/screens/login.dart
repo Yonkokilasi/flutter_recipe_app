@@ -121,7 +121,7 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<Null> _signIn() async {
+ Future<Null> _signIn() async {
     GoogleSignInAccount user = _googleSignIn.currentUser;
     Logger.log(TAG, message: "Just got user as: $user");
 
@@ -134,24 +134,27 @@ class LoginScreenState extends State<LoginScreen> {
 
     if (user == null) {
       user = await _googleSignIn.signIn().catchError(onError);
-      // TODO try sign in silently
-
-      Logger.log(TAG, message: "Recceived $user");
+      Logger.log(TAG, message: "Received $user");
       final GoogleSignInAuthentication googleAuth = await user.authentication;
       Logger.log(TAG, message: "Added googleAuth: $googleAuth");
       _firebaseUser = await _auth
-          .signInWithGoogle(
-              idToken: googleAuth.idToken, accessToken: googleAuth.accessToken)
+          .signInWithCredential(GoogleAuthProvider.getCredential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          ))
           .catchError(onError);
-    } else {
+    }
+
+    if (user != null) {
       _updateRefreshing(false);
       _googleUser = user;
       setState(() {
         this.status = AuthStatus.PHONE_AUTH;
         Logger.log(TAG, message: "Changed status to $status");
       });
-      return user;
+      return null;
     }
+    return null;
   }
 
   Future<Null> _submitPhoneNumber() async {
@@ -184,25 +187,18 @@ class LoginScreenState extends State<LoginScreen> {
     return _phoneNumber;
   }
 
-  Future<Null> _verifyPhoneNumber() async {
-     final PhoneVerificationCompleted verificationCompleted = (FirebaseUser user) {
-      setState(() {
-          print('Inside _sendCodeToPhoneNumber: signInWithPhoneNumber auto succeeded: $user');
-      });
-    };
-
+   Future<Null> _verifyPhoneNumber() async {
     Logger.log(TAG, message: "Got phone number as: ${this.phoneNumber}");
     await _auth.verifyPhoneNumber(
         phoneNumber: this.phoneNumber,
         timeout: _timeOut,
         codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetreivalTimeout,
-        verificationCompleted: verificationCompleted,
+        codeAutoRetrievalTimeout: codeAutoRetreivalTimeout(_verificationId),
+        verificationCompleted: _linkWithPhoneNumber,
         verificationFailed: verificationFailed);
     Logger.log(TAG, message: "Returning null from _verifyPhoneNumber");
     return null;
   }
-  
 
   Future<Null> _submitSmsCode() async {
     final error = _smsInputValidator();
@@ -215,24 +211,25 @@ class LoginScreenState extends State<LoginScreen> {
         await _finishSignIn(await _auth.currentUser());
       } else {
         Logger.log(TAG, message: "_linkWithPhoneNumber called");
-        await _linkWithPhoneNumber();
+        await _linkWithPhoneNumber(
+          PhoneAuthProvider.getCredential(
+            smsCode: _smsCodeController.text,
+            verificationId: _verificationId,
+          ),
+        );
       }
       return null;
     }
   }
 
-  Future<void> _linkWithPhoneNumber() async {
-    final GoogleSignInAuthentication googleAuth =
-        await _googleUser.authentication;
+  Future<void> _linkWithPhoneNumber(AuthCredential credential) async {
     final errorMessage = "We couldn't verify your code, please try again!";
 
-    _firebaseUser = (await _auth
-        .linkWithGoogleCredential(
-            idToken: googleAuth.idToken, accessToken: googleAuth.accessToken)
-        .catchError((error) {
+    _firebaseUser =
+        await _firebaseUser.linkWithCredential(credential).catchError((error) {
       print("Failed to verify SMS code: $error");
       _showErrorSnackbar(errorMessage);
-    }));
+    });
 
     await _onCodeVerified(_firebaseUser).then((codeVerified) async {
       this._codeVerified = codeVerified;
@@ -274,6 +271,7 @@ class LoginScreenState extends State<LoginScreen> {
         // Example: authenticate with your own API, use the data gathered
         // to post your profile/user, etc.
         print("**************** user authemticated");
+        appState.user = user;
       } else {
         setState(() {
           this.status = AuthStatus.SMS_AUTH;

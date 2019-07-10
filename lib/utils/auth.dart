@@ -21,9 +21,9 @@ Future<FirebaseUser> signIntoFirebase(
 
   GoogleSignInAuthentication googleAuth =
       await googleSignInAccount.authentication;
-      
-  return await _auth.signInWithGoogle(
-      idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+
+  return await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
+      idToken: googleAuth.idToken, accessToken: googleAuth.accessToken));
 }
 
 // Future<FirebaseUser> signInWithPhone(
